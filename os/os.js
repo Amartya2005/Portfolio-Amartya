@@ -131,7 +131,7 @@
           '<span class="proj__open">Open ›</span></button>';
       }).join('') + '</div>' +
       '<hr class="rule">' +
-      '<p class="kicker">More on GitHub</p>' +
+      '<p class="kicker">More projects</p>' +
       '<p class="more">' + window.MORE_PROJECTS.map(function (m) { return ext(m[1], esc(m[0]) + ' ↗'); }).join('') + ext(P.links.github, 'All repositories ↗') + '</p>' +
       '</div>';
   }

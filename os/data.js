@@ -67,7 +67,6 @@ window.PROJECTS = [
       ['What I’m working on', 'Agent architecture, reasoning, element grounding (mapping intent to the right UI element), action planning, policy-controlled execution, and end-to-end task execution.'],
       ['Why policy control', 'An agent that can act on the web needs guardrails. Policies decide which actions are allowed before anything runs, so the system can be autonomous and still predictable.'],
     ],
-    links: [['Source', 'https://github.com/Amartya2005/AgentArora']],
   },
   {
     id: 'ccms',
@@ -103,7 +102,6 @@ window.PROJECTS = [
       ['Order lifecycle', 'Each order moves through four explicit states: placed → confirmed → out for delivery → delivered. A free-text status field couldn’t enforce that order.'],
       ['Why these choices', 'A relational schema because the data has clear foreign keys (customer → order → items → restaurant). Socket.IO for automatic reconnection on flaky networks. JWT keeps auth stateless across three clients that share one API.'],
     ],
-    links: [['Source', 'https://github.com/Amartya2005/Food-ordering-platform']],
   },
   {
     id: 'optify',
@@ -118,7 +116,6 @@ window.PROJECTS = [
       ['The budget drove everything', 'With a hard limit of 50 KB per page load, the site sends summarized text instead of raw HTML and adds no framework overhead beyond Preact.'],
       ['Model choice', 'Gemini 1.5 Flash gives the best latency for its quality on short summaries. On slow connections, a larger model’s extra quality isn’t worth the slower round trip.'],
     ],
-    links: [['Source', 'https://github.com/Amartya2005/OptifyV2']],
   },
   {
     id: 'sos',
@@ -132,14 +129,11 @@ window.PROJECTS = [
       ['Architecture', 'One tap on the client broadcasts the user’s location to a FastAPI backend, which forwards it to a response dashboard used by monitoring staff.'],
       ['Critical path', 'The path from tap to delivered alert has as few steps and as little latency as possible, because every extra interaction costs time in an emergency.'],
     ],
-    links: [['Source', 'https://github.com/Amartya2005/SoS---Women-Safety']],
   },
 ];
 
 window.MORE_PROJECTS = [
   ['EPL 2026 Predictor', 'https://epl-2026-predictor.vercel.app'],
-  ['AI Assistant', 'https://github.com/Amartya2005/AI-Assistant'],
-  ['QuizJDBC (Java)', 'https://github.com/Amartya2005/QuizJDBC'],
 ];
 
 window.EXPERIENCE = [
