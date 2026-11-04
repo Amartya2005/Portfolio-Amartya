@@ -7,7 +7,7 @@ window.PROFILE = {
   role: 'Software Engineer · Backend, Applied AI & Agentic Systems',
   location: 'Bhubaneswar, Odisha, India',
   timezone: 'Asia/Kolkata',
-  email: 'sarangeeamartya@gmail.com',
+  email: 'amartyasarangee@focustriggerautomation.com',
   links: {
     linkedin: 'https://www.linkedin.com/in/amartya-sarangee-3351a8241',
     github: 'https://github.com/Amartya2005',
