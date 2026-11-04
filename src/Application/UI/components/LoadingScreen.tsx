@@ -227,7 +227,10 @@ const LoadingScreen: React.FC<LoadingProps> = () => {
                 aria-hidden={startPopupOpacity === 0}
                 style={Object.assign({}, styles.popupContainer, {
                     opacity: startPopupOpacity,
-                    pointerEvents: startPopupOpacity === 0 ? 'none' : 'auto',
+                    // Only block clicks while hidden. Never force 'auto': after START the
+                    // overlay sets pointer-events:none on #ui and this popup must inherit it,
+                    // otherwise the invisible popup swallows clicks meant for the monitor.
+                    pointerEvents: startPopupOpacity === 0 ? 'none' : undefined,
                 })}
             >
                 <div style={styles.startPopup}>
