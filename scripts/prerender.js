@@ -15,7 +15,7 @@ const vm = require('vm');
 
 const ROOT = path.resolve(__dirname, '..');
 const OUT = path.join(ROOT, 'public');
-const SITE = (process.env.SITE_URL || 'https://portfolio-amartya.vercel.app').replace(/\/$/, '');
+const SITE = (process.env.SITE_URL || 'https://amartya.focustriggerautomation.com').replace(/\/$/, '');
 
 // ---------- load content ----------
 const sandbox = { window: {} };
@@ -95,7 +95,6 @@ const HOME = `
       <h1>${esc(P.name)}</h1>
       <p class="h-headline">${esc(P.headline)}</p>
       <p class="h-role">${esc(P.role)} · ${esc(P.location)}</p>
-      <p class="h-status"><span class="h-led" aria-hidden="true"></span>Open to internships: ${esc(P.openTo.join(', '))}</p>
       <div class="h-cta">
         <a class="h-btn h-btn--dark" href="/os/">Open AmartyaOS <span aria-hidden="true">→</span></a>
         <a class="h-btn" href="mailto:${esc(P.email)}">Email me</a>
@@ -169,7 +168,7 @@ const HOME = `
 
   <section id="contact" class="h-sec h-contact">
     <h2>Let’s talk</h2>
-    <p>I’m open to ${esc(P.openTo.join(', '))} internships, and happy to talk about FocusTag or what you’re building.</p>
+    <p>Want to talk about FocusTag, a collaboration, or something you’re building? Send me a message.</p>
     <a class="h-btn h-btn--accent h-mail" href="mailto:${esc(P.email)}">${esc(P.email).replace('@', '@<wbr>')}</a>
     <p class="h-links">${ext(P.links.linkedin, 'LinkedIn ↗')}${ext(P.links.github, 'GitHub ↗')}${ext(P.links.instagram, 'Instagram ↗')}</p>
   </section>

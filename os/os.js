@@ -81,7 +81,6 @@
         '<p class="kicker kicker--accent">Hello, world. I’m</p>' +
         '<h1 class="h1">' + esc(P.name) + '</h1>' +
         '<p class="h3">' + esc(P.headline) + '</p>' +
-        '<p class="status"><span class="led"></span>Open to internships: ' + esc(P.openTo.join(', ')) + '</p>' +
         P.bio.map(function (p) { return '<p class="lead">' + esc(p) + '</p>'; }).join('') +
         '<dl class="about__meta">' +
           '<dt>Based in</dt><dd>' + esc(P.location) + '</dd>' +
@@ -208,7 +207,7 @@
   function renderContact() {
     return '<div class="pad stack-y">' +
       '<p class="kicker">New message</p><h1 class="h1">Let’s talk</h1>' +
-      '<p class="lead">I’m open to Software Engineering, Backend, AI/ML, Generative AI and Agentic AI internships. I’m also happy to talk about FocusTag or a project you’re building.</p>' +
+      '<p class="lead">Want to talk about FocusTag, a collaboration, or something you’re building? Send me a message.</p>' +
       '<form class="form" id="contact-form" novalidate>' +
         '<label>Your name<input name="name" autocomplete="name" required></label>' +
         '<label>Message<textarea name="message" required placeholder="Hi Amartya, …"></textarea></label>' +
@@ -284,8 +283,7 @@
           '<span class="c-acc">  ██   ██       ██ </span>  Role: Co-Founder & Director\n' +
           '<span class="c-acc">  ██   ██  ███████ </span>  Building: FocusTag\n' +
           '                      Uni: GIET University (CS, 3rd yr)\n' +
-          '                      Shell: Python, FastAPI, React\n' +
-          '                      Status: <span class="c-ok">open to internships</span>';
+          '                      Shell: Python, FastAPI, React';
       },
       date: function () { return new Date().toString(); },
       ls: function () { return 'about.txt  focustrigger/  projects/  experience.log  certificates/  skills.sys  contact.eml'; },
@@ -522,7 +520,6 @@
       '<img src="assets/avatar.webp" alt="" width="72" height="72">' +
       '<div><p class="kicker kicker--accent">Hello, I’m</p><h1 class="widget__name">' + esc(P.name) + '</h1>' +
       '<p class="widget__line">' + esc(P.headline) + '</p></div>' +
-      '<p class="status widget__status"><span class="led"></span>Open to internships</p>' +
       '<div class="btns widget__btns"><button class="btn btn--dark" data-app="about">About me</button>' +
       '<button class="btn" data-app="projects">Projects</button><button class="btn" data-app="contact">Contact</button></div>';
     widget.addEventListener('click', function (e) { var b = e.target.closest('[data-app]'); if (b) openApp(b.getAttribute('data-app')); });

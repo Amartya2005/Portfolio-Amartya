@@ -13,7 +13,6 @@ window.PROFILE = {
     github: 'https://github.com/Amartya2005',
     instagram: 'https://www.instagram.com/_amartya.ffs/',
   },
-  openTo: ['Software Engineering', 'Backend Engineering', 'AI/ML', 'Generative AI', 'Agentic AI'],
   bio: [
     "I'm a third-year Computer Science student at GIET University, Co-Founder & Director at FocusTrigger Automation Pvt Ltd, and a software developer. I like building intelligent systems that solve real-world problems.",
     'I work across software engineering, system architecture, applied AI/ML, generative AI and agentic systems. I enjoy designing applications end to end and finding new approaches to automation.',

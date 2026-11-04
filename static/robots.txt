@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://portfolio-amartya.vercel.app/sitemap.xml
+Sitemap: https://amartya.focustriggerautomation.com/sitemap.xml
