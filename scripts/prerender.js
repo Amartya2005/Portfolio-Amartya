@@ -28,7 +28,7 @@ const ext = (href, label, cls) => `<a${cls ? ` class="${cls}"` : ''} href="${esc
 const chips = (list) => `<ul class="h-chips">${list.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>`;
 
 // ---------- structured data ----------
-const skills = D.SKILLS.reduce((a, g) => a.concat(g[1]), []);
+const skills = D.SKILLS.slice(0, 3).reduce((a, g) => a.concat(g[2]), []);
 const person = {
     '@type': 'Person',
     '@id': `${SITE}/#person`,
@@ -36,7 +36,7 @@ const person = {
     url: `${SITE}/`,
     image: `${SITE}/os/assets/portrait.jpg`,
     email: `mailto:${P.email}`,
-    jobTitle: C.title,
+    jobTitle: ['Software Engineer', C.title + ', ' + C.name.replace(/\.$/, '')],
     description: P.bio[0],
     worksFor: { '@type': 'Organization', name: C.name.replace(/\.$/, ''), url: (C.links[0] || [])[1] },
     alumniOf: { '@type': 'CollegeOrUniversity', name: 'GIET University, Gunupur' },
@@ -94,6 +94,7 @@ const HOME = `
       <p class="h-kicker">Hello, world. I’m</p>
       <h1>${esc(P.name)}</h1>
       <p class="h-headline">${esc(P.headline)}</p>
+      <p class="h-focus">${P.focus.map((f) => `<span>${esc(f)}</span>`).join('')}</p>
       <p class="h-role">${esc(P.role)} · ${esc(P.location)}</p>
       <div class="h-cta">
         <a class="h-btn h-btn--dark" href="/os/">Open AmartyaOS <span aria-hidden="true">→</span></a>
@@ -125,7 +126,7 @@ const HOME = `
     <div class="h-grid">
       ${D.PROJECTS.map(projectCard).join('\n      ')}
     </div>
-    <p class="h-links h-more">More: ${D.MORE_PROJECTS.map((m) => ext(m[1], esc(m[0]))).join('')}${ext(P.links.github, 'All repositories on GitHub')}</p>
+    <p class="h-links h-more">${D.MORE_PROJECTS.map((m) => ext(m[1], esc(m[0]))).join('')}${ext(P.links.github, 'All repositories on GitHub')}</p>
   </section>
 
   <section id="experience" class="h-sec">
@@ -162,7 +163,7 @@ const HOME = `
   <section id="skills" class="h-sec">
     <h2>Skills</h2>
     <dl class="h-skills">
-      ${D.SKILLS.map((g) => `<div><dt>${esc(g[0])}</dt><dd>${chips(g[1])}</dd></div>`).join('\n      ')}
+      ${D.SKILLS.map((g) => `<div><dt>${esc(g[0])} <span>${esc(g[1])}</span></dt><dd>${chips(g[2])}</dd></div>`).join('\n      ')}
     </dl>
   </section>
 

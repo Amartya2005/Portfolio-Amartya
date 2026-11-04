@@ -502,3 +502,15 @@ body.is-mobile .term { font-size: 14px; padding: 14px; }
 
 body.is-mobile .start-menu { max-height: calc(100dvh - var(--taskbar-h) - 20px); overflow-y: auto; }
 body.is-mobile .windows { position: fixed; inset: 0 0 var(--taskbar-h) 0; z-index: 5; }
+
+/* First-screen focus line: Backend · Applied AI · System Architecture */
+.focus { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.focus span {
+  font: 600 12.5px/1 var(--f-mono); letter-spacing: .04em; text-transform: uppercase;
+  padding: 7px 10px; background: var(--ink); color: var(--paper);
+}
+.focus span:first-child { background: var(--accent); color: var(--ink); }
+.widget__focus { grid-column: 1 / -1; margin-top: 0; }
+.widget__focus span { font-size: 11.5px; padding: 6px 8px; }
+.sys__note { display: block; margin-top: 4px; font: 400 11.5px/1.3 var(--f-body); text-transform: none; letter-spacing: 0; color: var(--muted); }
+.focus span { white-space: nowrap; }

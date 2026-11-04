@@ -81,6 +81,7 @@
         '<p class="kicker kicker--accent">Hello, world. I’m</p>' +
         '<h1 class="h1">' + esc(P.name) + '</h1>' +
         '<p class="h3">' + esc(P.headline) + '</p>' +
+        '<p class="focus">' + P.focus.map(function (f) { return '<span>' + esc(f) + '</span>'; }).join('') + '</p>' +
         P.bio.map(function (p) { return '<p class="lead">' + esc(p) + '</p>'; }).join('') +
         '<dl class="about__meta">' +
           '<dt>Based in</dt><dd>' + esc(P.location) + '</dd>' +
@@ -131,7 +132,7 @@
           '<span class="proj__open">Open ›</span></button>';
       }).join('') + '</div>' +
       '<hr class="rule">' +
-      '<p class="kicker">More projects</p>' +
+      '<p class="kicker">More</p>' +
       '<p class="more">' + window.MORE_PROJECTS.map(function (m) { return ext(m[1], esc(m[0]) + ' ↗'); }).join('') + ext(P.links.github, 'All repositories ↗') + '</p>' +
       '</div>';
   }
@@ -197,9 +198,9 @@
 
   function renderSkills() {
     return '<div class="pad">' +
-      '<p class="kicker">System properties · installed components</p><h1 class="h1" style="margin:6px 0 20px">Skills</h1>' +
+      '<p class="kicker">System properties · grouped by depth</p><h1 class="h1" style="margin:6px 0 20px">Skills</h1>' +
       '<div class="sys">' + window.SKILLS.map(function (g) {
-        return '<div class="sys__row"><div class="sys__k">' + esc(g[0]) + '</div><div class="sys__v">' + chips(g[1]) + '</div></div>';
+        return '<div class="sys__row"><div class="sys__k">' + esc(g[0]) + '<span class="sys__note">' + esc(g[1]) + '</span></div><div class="sys__v">' + chips(g[2]) + '</div></div>';
       }).join('') + '</div>' +
       '</div>';
   }
@@ -269,7 +270,7 @@
       experience: function () {
         return window.EXPERIENCE.map(function (e) { return '  <span class="c-ok">' + esc(e.period.padEnd(20)) + '</span>' + esc(e.title) + ' @ ' + esc(e.org); }).join('\n');
       },
-      skills: function () { return window.SKILLS.map(function (g) { return '  <span class="c-acc">' + esc(g[0].padEnd(16)) + '</span>' + esc(g[1].join(', ')); }).join('\n'); },
+      skills: function () { return window.SKILLS.map(function (g) { return '<span class="c-acc">' + esc(g[0]) + '</span> <span class="c-dim">(' + esc(g[1].toLowerCase()) + ')</span>\n  ' + esc(g[2].join(', ')); }).join('\n\n'); },
       certs: function () { return window.CERTIFICATES.map(function (c) { return '  ✔ ' + esc(c.title) + ' <span class="c-dim">(' + esc(c.issuer) + ', ' + esc(c.date) + ')</span>'; }).join('\n'); },
       contact: function () {
         return '  email     <a href="mailto:' + esc(P.email) + '">' + esc(P.email) + '</a>\n' +
@@ -283,6 +284,7 @@
           '<span class="c-acc">  ██   ██       ██ </span>  Role: Co-Founder & Director\n' +
           '<span class="c-acc">  ██   ██  ███████ </span>  Building: FocusTag\n' +
           '                      Uni: GIET University (CS, 3rd yr)\n' +
+          '                      Focus: ' + esc(P.focus.join(', ')) + '\n' +
           '                      Shell: Python, FastAPI, React';
       },
       date: function () { return new Date().toString(); },
@@ -520,6 +522,7 @@
       '<img src="assets/avatar.webp" alt="" width="72" height="72">' +
       '<div><p class="kicker kicker--accent">Hello, I’m</p><h1 class="widget__name">' + esc(P.name) + '</h1>' +
       '<p class="widget__line">' + esc(P.headline) + '</p></div>' +
+      '<p class="focus widget__focus">' + P.focus.map(function (f) { return '<span>' + esc(f) + '</span>'; }).join('') + '</p>' +
       '<div class="btns widget__btns"><button class="btn btn--dark" data-app="about">About me</button>' +
       '<button class="btn" data-app="projects">Projects</button><button class="btn" data-app="contact">Contact</button></div>';
     widget.addEventListener('click', function (e) { var b = e.target.closest('[data-app]'); if (b) openApp(b.getAttribute('data-app')); });

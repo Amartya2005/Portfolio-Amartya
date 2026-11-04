@@ -7,13 +7,15 @@ interface InfoOverlayProps {
 }
 
 const NAME_TEXT = 'Amartya Sarangee';
-const TITLE_TEXT = 'Co-Founder & Director, FocusTrigger';
+const TITLE_TEXT = 'Software Engineer & FocusTrigger Co-Founder + Director';
+const FOCUS_TEXT = 'Backend · Applied AI · System Architecture';
 const MULTIPLIER = 1;
 
 const InfoOverlay: React.FC<InfoOverlayProps> = ({ visible }) => {
     const visRef = useRef(visible);
     const [nameText, setNameText] = useState('');
     const [titleText, setTitleText] = useState('');
+    const [focusText, setFocusText] = useState('');
     const [time, setTime] = useState(new Date().toLocaleTimeString());
     const timeRef = useRef(time);
     const [timeText, setTimeText] = useState('');
@@ -60,6 +62,7 @@ const InfoOverlay: React.FC<InfoOverlayProps> = ({ visible }) => {
             setTimeout(() => {
                 typeText(0, '', NAME_TEXT, setNameText, () => {
                     typeText(0, '', TITLE_TEXT, setTitleText, () => {
+                      typeText(0, '', FOCUS_TEXT, setFocusText, () => {
                         typeText(
                             0,
                             '',
@@ -70,6 +73,7 @@ const InfoOverlay: React.FC<InfoOverlayProps> = ({ visible }) => {
                             },
                             timeRef
                         );
+                      });
                     });
                 });
             }, 400);
@@ -114,6 +118,11 @@ const InfoOverlay: React.FC<InfoOverlayProps> = ({ visible }) => {
             {titleText !== '' && (
                 <div style={styles.container}>
                     <p>{titleText}</p>
+                </div>
+            )}
+            {focusText !== '' && (
+                <div style={styles.container}>
+                    <p>{focusText}</p>
                 </div>
             )}
             {timeText !== '' && (
