@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import eventBus from '../EventBus';
 
 type LoadingProps = {};
@@ -10,6 +10,14 @@ const LoadingScreen: React.FC<LoadingProps> = () => {
     const [overlayOpacity, setLoadingOverlayOpacity] = useState(1);
     const [loadingTextOpacity, setLoadingTextOpacity] = useState(1);
     const [startPopupOpacity, setStartPopupOpacity] = useState(0);
+    const startButtonRef = useRef<HTMLButtonElement>(null);
+
+    // Keyboard users: move focus to START once it is actually shown.
+    useEffect(() => {
+        if (startPopupOpacity === 1 && startButtonRef.current) {
+            startButtonRef.current.focus({ preventScroll: true });
+        }
+    }, [startPopupOpacity]);
     const [firefoxPopupOpacity, setFirefoxPopupOpacity] = useState(0);
     const [webGLErrorOpacity, setWebGLErrorOpacity] = useState(0);
 
@@ -216,8 +224,10 @@ const LoadingScreen: React.FC<LoadingProps> = () => {
                 </div>
             )}
             <div
+                aria-hidden={startPopupOpacity === 0}
                 style={Object.assign({}, styles.popupContainer, {
                     opacity: startPopupOpacity,
+                    pointerEvents: startPopupOpacity === 0 ? 'none' : 'auto',
                 })}
             >
                 <div style={styles.startPopup}>
@@ -267,9 +277,15 @@ const LoadingScreen: React.FC<LoadingProps> = () => {
                             marginTop: '16px',
                         }}
                     >
-                        <div className="bios-start-button" onClick={start}>
+                        <button
+                            type="button"
+                            ref={startButtonRef}
+                            className="bios-start-button"
+                            onClick={start}
+                            tabIndex={startPopupOpacity === 1 ? 0 : -1}
+                        >
                             <p>START</p>
-                        </div>
+                        </button>
                     </div>
                     {!mobileWarning && (
                         <p style={styles.skipLink}>

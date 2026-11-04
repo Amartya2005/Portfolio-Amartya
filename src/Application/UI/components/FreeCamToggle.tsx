@@ -56,11 +56,20 @@ const MuteToggle: React.FC<MuteToggleProps> = ({}) => {
                 onMouseLeave={() => setIsHovering(false)}
                 style={styles.container}
                 onMouseDown={onMouseDownHandler}
+                role="button"
+                tabIndex={0}
+                aria-label={freeCamActive ? 'Exit free camera' : 'Enable free camera'}
+                aria-pressed={freeCamActive}
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') onMouseDownHandler(e);
+                }}
+                onKeyUp={onMouseUpHandler}
                 onMouseUp={onMouseUpHandler}
                 className="icon-control-container"
                 id="prevent-click"
             >
                 <motion.img
+                    alt=""
                     id="prevent-click"
                     src={freeCamActive ? mouse : camera}
                     style={{ opacity: isActive ? 0.2 : isHovering ? 0.8 : 1 }}

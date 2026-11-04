@@ -2,7 +2,8 @@
     "license": "MIT",
     "scripts": {
         "dev": "webpack serve --config ./bundler/webpack.dev.js",
-        "build": "webpack --config ./bundler/webpack.prod.js && node scripts/prerender.js"
+        "build": "webpack --config ./bundler/webpack.prod.js && node scripts/prerender.js",
+        "test": "node scripts/verify-build.js"
     },
     "dependencies": {
         "@babel/core": "^7.16.12",

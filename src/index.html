@@ -97,14 +97,12 @@
   <meta name="twitter:description"
     content="Software engineer and Co-Founder &amp; Director at FocusTrigger Automation. Backend, applied AI and system architecture.">
   <meta name="twitter:image" content="https://amartya.focustriggerautomation.com/images/preview.jpg">
+  <meta name="twitter:image:alt" content="A 3D retro desk computer running AmartyaOS, Amartya Sarangee's portfolio">
 
   <link rel="icon" href="/images/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
   <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;600&family=Jersey+10&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/home.css">
   <script>
     // Decide before first paint: phones get the fast text home page, others the 3D desk.
@@ -112,6 +110,11 @@
       var q = location.search;
       var three = /[?&]3d\b/.test(q) || (!/[?&]text\b/.test(q) && !window.matchMedia('(max-width: 767px)').matches);
       document.documentElement.className = three ? 'is-3d' : 'is-home';
+      if (!three) ['jersey10-400', 'plex-sans-var'].forEach(function (f) {
+        var l = document.createElement('link');
+        l.rel = 'preload'; l.as = 'font'; l.type = 'font/woff2'; l.crossOrigin = 'anonymous';
+        l.href = '/fonts/' + f + '.woff2'; document.head.appendChild(l);
+      });
     })();
   </script>
   <template id="ph-jsonld"></template>

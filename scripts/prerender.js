@@ -25,49 +25,74 @@ const P = D.PROFILE, C = D.COMPANY;
 
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const ext = (href, label, cls) => `<a${cls ? ` class="${cls}"` : ''} href="${esc(href)}" target="_blank" rel="noopener">${label}</a>`;
+const extMe = (href, label) => `<a href="${esc(href)}" target="_blank" rel="me noopener">${label}</a>`;
 const chips = (list) => `<ul class="h-chips">${list.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>`;
 
 // ---------- structured data ----------
 const skills = D.SKILLS.slice(0, 3).reduce((a, g) => a.concat(g[2]), []);
+const ORG = C.name.replace(/\.$/, '');
+const certs = (D.CERTIFICATES || []).map((c) => ({
+    '@type': 'EducationalOccupationalCredential',
+    name: c.title,
+    credentialCategory: 'certificate',
+    recognizedBy: { '@type': 'Organization', name: c.issuer },
+    ...(c.verify ? { url: c.verify } : {}),
+}));
 const person = {
     '@type': 'Person',
     '@id': `${SITE}/#person`,
     name: P.name,
+    givenName: 'Amartya',
+    familyName: 'Sarangee',
     url: `${SITE}/`,
-    image: `${SITE}/os/assets/portrait.jpg`,
+    image: { '@type': 'ImageObject', url: `${SITE}/os/assets/portrait.jpg`, width: 1020, height: 1274 },
     email: `mailto:${P.email}`,
-    jobTitle: ['Software Engineer', C.title + ', ' + C.name.replace(/\.$/, '')],
+    jobTitle: ['Software Engineer', `${C.title}, ${ORG}`],
+    hasOccupation: { '@type': 'Occupation', name: 'Software Engineer', skills: P.focus.join(', ') },
     description: P.bio[0],
-    worksFor: { '@type': 'Organization', name: C.name.replace(/\.$/, ''), url: (C.links[0] || [])[1] },
+    worksFor: { '@id': `${SITE}/#org` },
     alumniOf: { '@type': 'CollegeOrUniversity', name: 'GIET University, Gunupur' },
     address: { '@type': 'PostalAddress', addressLocality: 'Bhubaneswar', addressRegion: 'Odisha', addressCountry: 'IN' },
     knowsAbout: skills,
     knowsLanguage: P.languages.map((l) => l[0]),
+    hasCredential: certs,
     sameAs: [P.links.linkedin, P.links.github, P.links.instagram],
 };
-const jsonld = {
-    '@context': 'https://schema.org',
-    '@graph': [
-        person,
-        { '@type': 'WebSite', '@id': `${SITE}/#website`, url: `${SITE}/`, name: `${P.name} · Portfolio`, publisher: { '@id': `${SITE}/#person` }, inLanguage: 'en' },
-        {
-            '@type': 'ProfilePage',
-            '@id': `${SITE}/#profilepage`,
-            url: `${SITE}/`,
-            name: `${P.name} – ${C.title}, ${C.name.replace(/\.$/, '')}`,
-            isPartOf: { '@id': `${SITE}/#website` },
-            mainEntity: { '@id': `${SITE}/#person` },
-            dateModified: new Date().toISOString(),
-        },
-    ],
+const org = {
+    '@type': 'Organization',
+    '@id': `${SITE}/#org`,
+    name: ORG,
+    url: (C.links[0] || [])[1],
+    founder: { '@id': `${SITE}/#person` },
 };
-const JSONLD = `<script type="application/ld+json">${JSON.stringify(jsonld).replace(/</g, '\\u003c')}</script>`;
+const website = { '@type': 'WebSite', '@id': `${SITE}/#website`, url: `${SITE}/`, name: `${P.name} · Portfolio`, publisher: { '@id': `${SITE}/#person` }, inLanguage: 'en' };
+const graph = (page) => ({ '@context': 'https://schema.org', '@graph': [person, org, website, page] });
+const jsonld = graph({
+    '@type': 'ProfilePage',
+    '@id': `${SITE}/#profilepage`,
+    url: `${SITE}/`,
+    name: `${P.name} – ${P.headline.replace(/\u2011/g, '-')}`,
+    isPartOf: { '@id': `${SITE}/#website` },
+    mainEntity: { '@id': `${SITE}/#person` },
+    primaryImageOfPage: { '@type': 'ImageObject', url: `${SITE}/images/preview.jpg`, width: 1200, height: 630 },
+    dateModified: new Date().toISOString(),
+});
+const jsonldOs = graph({
+    '@type': 'WebPage',
+    '@id': `${SITE}/os/#webpage`,
+    url: `${SITE}/os/`,
+    name: `AmartyaOS – Interactive portfolio of ${P.name}`,
+    isPartOf: { '@id': `${SITE}/#website` },
+    about: { '@id': `${SITE}/#person` },
+});
+const ld = (o) => `<script type="application/ld+json">${JSON.stringify(o).replace(/</g, '\\u003c')}</script>`;
+const JSONLD = ld(jsonld);
 
 // ---------- home page ----------
 const projectCard = (p) => {
     const links = [];
     if (p.opensCompany) links.push(`<a href="/os/#focustrigger">FocusTrigger details</a>`);
-    else links.push(`<a href="/os/#project:${esc(p.id)}">Engineering notes</a>`);
+    else links.push(`<a href="/os/#project:${esc(p.id)}">Engineering notes<span class="h-sr"> for ${esc(p.short || p.name)}</span></a>`);
     (p.links || []).forEach((l) => links.push(ext(l[1], `${esc(l[0])} ↗`)));
     return `<article class="h-card" style="--c:${esc(p.color)}">
       <h3>${esc(p.name)}</h3>
@@ -171,7 +196,7 @@ const HOME = `
     <h2>Let’s talk</h2>
     <p>Want to talk about FocusTag, a collaboration, or something you’re building? Send me a message.</p>
     <a class="h-btn h-btn--accent h-mail" href="mailto:${esc(P.email)}">${esc(P.email).replace('@', '@<wbr>')}</a>
-    <p class="h-links">${ext(P.links.linkedin, 'LinkedIn ↗')}${ext(P.links.github, 'GitHub ↗')}${ext(P.links.instagram, 'Instagram ↗')}</p>
+    <p class="h-links">${extMe(P.links.linkedin, 'LinkedIn ↗')}${extMe(P.links.github, 'GitHub ↗')}${extMe(P.links.instagram, 'Instagram ↗')}</p>
   </section>
 
   <footer class="h-foot">
@@ -193,7 +218,7 @@ function inject(file, map) {
     console.log(`prerender: ${file} (${Object.keys(map).join(', ')})`);
 }
 inject('index.html', { 'ph-home': HOME, 'ph-jsonld': JSONLD });
-inject('os/index.html', { 'ph-jsonld': JSONLD });
+inject('os/index.html', { 'ph-jsonld': ld(jsonldOs) });
 
 const today = new Date().toISOString().slice(0, 10);
 fs.writeFileSync(

@@ -188,3 +188,20 @@ a.bios-start-button {
     text-decoration: none;
     color: inherit;
 }
+
+/* START is a real <button> for keyboard users; keep the BIOS look */
+button.bios-start-button {
+    font: inherit;
+    color: inherit;
+    padding: 0;
+    cursor: pointer;
+}
+button.bios-start-button:focus-visible p,
+.icon-control-container:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+button.bios-start-button:focus-visible p {
+    background-color: #fff;
+    color: #000;
+}

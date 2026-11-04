@@ -168,10 +168,10 @@ window.PROJECTS = [
     summary: 'A 3D desk on desktop, a fast text page on phones, and a retro OS built from scratch, all generated from one content file.',
     stack: ['Three.js', 'TypeScript', 'Vanilla JS', 'Webpack', 'Vercel', 'Hostinger DNS'],
     facts: [
-      ['100', 'Lighthouse SEO, accessibility and best practices (mobile)'],
-      ['98 → 6 MB', 'site weight after removing and recompressing assets'],
+      ['100', 'Lighthouse performance, accessibility, best practices and SEO on the phone page'],
+      ['98 → 9 MB', 'build output after removing and recompressing oversized assets'],
       ['908 → 4 KB', 'JavaScript sent to phones (3D code is split out)'],
-      ['11.2 → 2.6 s', 'time to the start screen on a 4 Mbps connection'],
+      ['0.9 s', 'first contentful paint on the phone page (Lighthouse, simulated slow 4G)'],
     ],
     sections: [
       ['Architecture', 'Phones get a prerendered text page; desktops lazy-load the 3D scene, whose monitor runs AmartyaOS in an iframe. A build step turns os/data.js into crawlable HTML, schema.org data and a sitemap, so content lives in one place.'],

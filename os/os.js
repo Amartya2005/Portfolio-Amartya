@@ -75,7 +75,7 @@
 
   function renderAbout() {
     return '<div class="pad"><div class="about">' +
-      '<figure class="about__photo"><img src="assets/portrait.webp" alt="Portrait of Amartya Sarangee" width="510" height="637">' +
+      '<figure class="about__photo"><img src="assets/portrait-440.webp" srcset="assets/portrait-264.webp 264w, assets/portrait-440.webp 440w, assets/portrait.webp 510w" sizes="(max-width: 720px) 150px, 216px" alt="Portrait of Amartya Sarangee" width="510" height="637" decoding="async">' +
       '<figcaption><span>amartya.jpg</span><span>4:5</span></figcaption></figure>' +
       '<div class="stack-y">' +
         '<p class="kicker kicker--accent">Hello, world. I’m</p>' +
@@ -318,7 +318,7 @@
       else if (e.key === 'l' && e.ctrlKey) { out.innerHTML = ''; e.preventDefault(); }
     });
     win.el.addEventListener('mouseup', function () { if (!String(window.getSelection())) input.focus(); });
-    setTimeout(function () { input.focus(); }, 50);
+    setTimeout(function () { if (!inFrame || document.hasFocus()) input.focus(); }, 50);
   }
 
   /* ------------------------------------------------------------------
@@ -411,6 +411,9 @@
     makeResizable(el, $('.win__resize', el));
     if (cfg.mount) cfg.mount(win);
     focusWin(id);
+    el.setAttribute('tabindex', '-1');
+    // Inside the 3D monitor (iframe), never steal focus from the parent page.
+    if (!$('.term__in', el) && (!inFrame || document.hasFocus())) el.focus({ preventScroll: true });
     return win;
   }
 
@@ -431,7 +434,8 @@
     var w = wins[id]; if (!w) return;
     w.el.remove(); w.task.remove(); delete wins[id];
     if (isMobile() && !toHome && w.cfg.parent) { openApp(w.cfg.parent); return; }
-    var top = topWin(); if (top) focusWin(top);
+    var top = topWin();
+    if (top) { focusWin(top); if (!inFrame || document.hasFocus()) wins[top].el.focus({ preventScroll: true }); }
   }
   function topWin() {
     var best = null, bz = -1;
@@ -519,7 +523,7 @@
   var widget = $('#widget');
   if (widget) {
     widget.innerHTML =
-      '<img src="assets/avatar.webp" alt="" width="72" height="72">' +
+      '<img src="assets/avatar-144.webp" alt="" width="72" height="72" decoding="async">' +
       '<div><p class="kicker kicker--accent">Hello, I’m</p><h1 class="widget__name">' + esc(P.name) + '</h1>' +
       '<p class="widget__line">' + esc(P.headline) + '</p></div>' +
       '<p class="focus widget__focus">' + P.focus.map(function (f) { return '<span>' + esc(f) + '</span>'; }).join('') + '</p>' +
@@ -548,7 +552,7 @@
   var startBtn = $('#start-btn'), menu = $('#start-menu');
   menu.innerHTML =
     '<div class="start-menu__rail">Amartya<b>OS</b></div>' +
-    '<div><div class="start-menu__head"><img src="assets/avatar.webp" alt=""><div><strong>' + esc(P.name) + '</strong><span>Co-Founder & Director · FocusTrigger</span></div></div>' +
+    '<div><div class="start-menu__head"><img src="assets/avatar-144.webp" alt="" width="42" height="42" loading="lazy"><div><strong>' + esc(P.name) + '</strong><span>Co-Founder & Director · FocusTrigger</span></div></div>' +
     '<ul>' + DESKTOP_ORDER.map(function (id) {
       return '<li><button class="start-menu__item" data-app="' + id + '">' + ICONS[APPS[id].icon] + esc(APPS[id].title) + '</button></li>';
     }).join('') +
@@ -570,7 +574,14 @@
   document.addEventListener('pointerdown', function (e) {
     if (!menu.hidden && !menu.contains(e.target) && !startBtn.contains(e.target)) setMenu(false);
   });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !menu.hidden) { setMenu(false); startBtn.focus(); } });
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    if (!menu.hidden) { setMenu(false); startBtn.focus(); return; }
+    var t = e.target;
+    if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA')) return;
+    var top = topWin();
+    if (top) { e.preventDefault(); closeWin(top); }
+  });
 
   function shutdown() {
     var s = document.createElement('div');

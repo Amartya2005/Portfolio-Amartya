@@ -1,4 +1,3 @@
-import './style.css';
 
 /**
  * Phones get the prerendered text home page (fast, readable, crawlable).
@@ -30,9 +29,11 @@ function addMonitorVideos() {
 
 if (document.documentElement.classList.contains('is-3d')) {
     addMonitorVideos();
-    import(/* webpackChunkName: "desk3d" */ './Application/Application').then(
-        ({ default: Application }) => {
-            new Application();
-        }
-    );
+    // 3D-only styles travel with the 3D chunk, so the phone page has no extra render-blocking CSS.
+    Promise.all([
+        import(/* webpackChunkName: "desk3d" */ './style.css'),
+        import(/* webpackChunkName: "desk3d" */ './Application/Application'),
+    ]).then(([, { default: Application }]) => {
+        new Application();
+    });
 }

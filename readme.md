@@ -38,6 +38,18 @@ npm run build    # production build in ./public
 
 To work on the OS alone, serve the `os/` folder with any static server.
 
+`npm test` checks the production build in `./public` without extra dependencies. It
+verifies that every internal link, `src`, `srcset` and CSS `url()` resolves, that AmartyaOS
+deep links point at real apps and projects, that the JSON-LD parses, and it also checks
+titles, descriptions, canonical URLs, image alt text, unique ids, the sitemap and robots.txt.
+Run it after every `npm run build`.
+
+## Fonts
+
+Fonts are self-hosted from `static/fonts/` (latin subset, SIL Open Font License): Jersey 10,
+IBM Plex Sans (one variable file) and IBM Plex Mono. They are declared inline in `home.css`
+and `os/os.css`, so pages make no requests to third-party font servers.
+
 ## Deploy
 
 The project is set up for Vercel (`vercel.json`): build command `npm run build`,
