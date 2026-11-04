@@ -43,7 +43,7 @@ window.COMPANY = {
   approach:
     'We work in reviewable stages and keep a clear line between what exists today and what is planned.',
   stack: ['Kotlin (Android)', 'NFC', 'QR fallback', 'Next.js', 'TypeScript', 'Supabase'],
-  links: [['FocusTag website', 'https://focustag-website.vercel.app']],
+  links: [['focustriggerautomation.com', 'https://focustriggerautomation.com']],
 };
 
 window.PROJECTS = [
@@ -150,6 +150,7 @@ window.EXPERIENCE = [
     period: 'Oct 2026 – Present',
     place: 'Gunupur, Odisha',
     current: true,
+    link: ['focustriggerautomation.com', 'https://focustriggerautomation.com'],
     points: [
       'Building FocusTag, the company’s first product: phone-to-phone NFC with a QR fallback.',
       'Lead the architecture and technical approach: own the tradeoffs and keep the product scalable and industry-standard.',
