@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>AmartyaOS · Amartya Sarangee</title>
+  <meta name="description" content="Amartya Sarangee: Co-Founder & Director at FocusTrigger Automation, building FocusTag. Software engineer working on backend systems, applied AI and agentic systems.">
+  <meta name="theme-color" content="#161b3a">
+  <link rel="icon" href="/images/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Jersey+10&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="os.css">
+</head>
+<body>
+  <div id="boot" class="boot" aria-live="polite">
+    <pre class="boot__log" id="boot-log"></pre>
+    <p class="boot__skip">click or press any key to skip</p>
+  </div>
+
+  <main id="desktop" class="desktop" aria-label="AmartyaOS desktop">
+    <nav class="icons" id="icons" aria-label="Applications"></nav>
+    <div class="windows" id="windows"></div>
+  </main>
+
+  <div id="start-menu" class="start-menu" hidden></div>
+
+  <footer class="taskbar" id="taskbar">
+    <button class="start-btn" id="start-btn" type="button" aria-haspopup="true" aria-expanded="false">
+      <span class="start-btn__logo" aria-hidden="true">AS</span><span>Start</span>
+    </button>
+    <div class="tasks" id="tasks" role="toolbar" aria-label="Open windows"></div>
+    <div class="tray">
+      <span class="tray__status" title="Open to internships"><span class="led" aria-hidden="true"></span>Open to work</span>
+      <time class="tray__clock" id="clock">--:--</time>
+    </div>
+  </footer>
+
+  <noscript>
+    <div class="noscript">
+      <h1>Amartya Sarangee</h1>
+      <p>Co-Founder &amp; Director, FocusTrigger Automation · Building FocusTag</p>
+      <p><a href="mailto:sarangeeamartya@gmail.com">sarangeeamartya@gmail.com</a> ·
+        <a href="https://www.linkedin.com/in/amartya-sarangee-3351a8241">LinkedIn</a> ·
+        <a href="https://github.com/Amartya2005">GitHub</a></p>
+    </div>
+  </noscript>
+
+  <script src="data.js"></script>
+  <script src="os.js"></script>
+</body>
+</html>
