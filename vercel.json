@@ -6,6 +6,17 @@
     "outputDirectory": "public",
     "redirects": [
         {
+            "source": "/:path*",
+            "has": [
+                {
+                    "type": "host",
+                    "value": "portfolio-amartya.vercel.app"
+                }
+            ],
+            "destination": "https://amartya.focustriggerautomation.com/:path*",
+            "permanent": true
+        },
+        {
             "source": "/os",
             "destination": "/os/",
             "permanent": true
