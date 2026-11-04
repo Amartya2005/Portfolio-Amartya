@@ -183,3 +183,8 @@ br {
         padding-bottom: 32px;
     }
 }
+
+a.bios-start-button {
+    text-decoration: none;
+    color: inherit;
+}

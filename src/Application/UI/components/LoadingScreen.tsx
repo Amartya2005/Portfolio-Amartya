@@ -149,25 +149,25 @@ const LoadingScreen: React.FC<LoadingProps> = () => {
                         <div style={styles.logoContainer}>
                             <div>
                                 <p style={styles.green}>
-                                    <b>Heffernan,</b>{' '}
+                                    <b>Sarangee,</b>{' '}
                                 </p>
                                 <p style={styles.green}>
-                                    <b>Henry Inc.</b>
+                                    <b>Amartya Systems</b>
                                 </p>
                             </div>
                         </div>
                         <div style={styles.headerInfo}>
-                            <p>Released: 01/13/2000</p>
-                            <p>HHBIOS (C)2000 Heffernan Henry Inc.,</p>
+                            <p>Released: 11/04/2026</p>
+                            <p>ASBIOS (C)2026 Sarangee Amartya Systems,</p>
                         </div>
                     </div>
                     <div style={styles.body} className="loading-screen-body">
-                        <p>HSP S13 2000-2022 Special UC131S</p>
+                        <p>ASP GIET-CSE 2024-2028 FocusTrigger Edition</p>
                         <div style={styles.spacer} />
                         {showBiosInfo && (
                             <>
-                                <p>HSP Showcase(tm) XX 113</p>
-                                <p>Checking RAM : {14000} OK</p>
+                                <p>AS Showcase(tm) Backend + Applied AI</p>
+                                <p>Checking RAM : {16384} OK</p>
                                 <div style={styles.spacer} />
                                 <div style={styles.spacer} />
                                 {showLoadingResources ? (
@@ -195,7 +195,7 @@ const LoadingScreen: React.FC<LoadingProps> = () => {
                             <p>
                                 All Content Loaded, launching{' '}
                                 <b style={styles.green}>
-                                    'Henry Heffernan Portfolio Showcase'
+                                    'Amartya Sarangee Portfolio Showcase'
                                 </b>{' '}
                                 V1.0
                             </p>
@@ -227,18 +227,31 @@ const LoadingScreen: React.FC<LoadingProps> = () => {
                     <p>But do enjoy what I have done so far :)</p>
                     <div style={styles.spacer} />
                     <div style={styles.spacer} /> */}
-                    <p>Henry Heffernan Portfolio Showcase 2022</p>
+                    <p>Amartya Sarangee · Portfolio 2026</p>
                     {mobileWarning && (
                         <>
                             <br />
                             <b>
                                 <p style={styles.warning}>
-                                    WARNING: This experience is best viewed on
+                                    This 3D experience is best viewed on
                                 </p>
                                 <p style={styles.warning}>
                                     a desktop or laptop computer.
                                 </p>
                             </b>
+                            <br />
+                            <p>On a phone? Open the mobile version:</p>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    marginTop: '12px',
+                                }}
+                            >
+                                <a className="bios-start-button" href="/os/">
+                                    <p>MOBILE VERSION</p>
+                                </a>
+                            </div>
                             <br />
                         </>
                     )}
@@ -258,6 +271,14 @@ const LoadingScreen: React.FC<LoadingProps> = () => {
                             <p>START</p>
                         </div>
                     </div>
+                    {!mobileWarning && (
+                        <p style={styles.skipLink}>
+                            Prefer 2D?{' '}
+                            <a style={styles.link} href="/os/">
+                                Open AmartyaOS directly
+                            </a>
+                        </p>
+                    )}
                 </div>
             </div>
             {webGLError && (
@@ -361,6 +382,12 @@ const styles: StyleSheetCSS = {
         // textDecoration: 'none',
         color: '#4598ff',
         cursor: 'pointer',
+    },
+    skipLink: {
+        marginTop: 20,
+        fontSize: '0.85em',
+        opacity: 0.8,
+        textAlign: 'center',
     },
     overlayText: {
         width: '100%',

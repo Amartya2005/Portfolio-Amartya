@@ -1,0 +1,14 @@
+{
+    "$schema": "https://openapi.vercel.sh/vercel.json",
+    "framework": null,
+    "installCommand": "npm ci",
+    "buildCommand": "npm run build",
+    "outputDirectory": "public",
+    "redirects": [{ "source": "/os", "destination": "/os/", "permanent": true }],
+    "headers": [
+        {
+            "source": "/(models|textures|audio)/(.*)",
+            "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800" }]
+        }
+    ]
+}

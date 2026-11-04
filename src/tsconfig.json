@@ -9,6 +9,9 @@
         "strictPropertyInitialization": false,
         "allowSyntheticDefaultImports": true,
         "jsx": "react",
+        "types": [],
+        "lib": ["ES2019", "DOM", "DOM.Iterable"],
+        "skipLibCheck": true,
     },
     
     "include": ["Application/*", "./*"],

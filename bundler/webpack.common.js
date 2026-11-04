@@ -13,7 +13,10 @@ module.exports = {
     devtool: 'source-map',
     plugins: [
         new CopyWebpackPlugin({
-            patterns: [{ from: path.resolve(__dirname, '../static') }],
+            patterns: [
+                { from: path.resolve(__dirname, '../static') },
+                { from: path.resolve(__dirname, '../os'), to: 'os' },
+            ],
         }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../src/index.html'),
@@ -32,7 +35,8 @@ module.exports = {
             // HTML
             {
                 test: /\.(html)$/,
-                use: ['html-loader'],
+                // Static files are copied to the site root, so leave URLs as-is
+                use: [{ loader: 'html-loader', options: { sources: false } }],
             },
             {
                 test: /\.ts?$/,
