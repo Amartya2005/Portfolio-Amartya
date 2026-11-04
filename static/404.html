@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>404 – File not found · Amartya Sarangee</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="/images/favicon.ico" sizes="any">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Jersey+10&display=swap" rel="stylesheet">
+  <style>
+    :root { --ink: #141414; --paper: #f6f0e4; --accent: #ff5a1f; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100dvh; display: grid; place-items: center; padding: 24px;
+      background: #161b3a; color: var(--ink); font: 400 15px/1.6 "IBM Plex Mono", ui-monospace, monospace;
+    }
+    .win { width: min(520px, 100%); background: var(--paper); border: 2px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); }
+    .bar { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; background: var(--ink); color: var(--paper); font: 400 20px/1 "Jersey 10", monospace; letter-spacing: .03em; }
+    .bar span:last-child { display: grid; place-items: center; width: 22px; height: 22px; background: var(--paper); color: var(--ink); font: 700 13px/1 "IBM Plex Mono", monospace; }
+    .body { padding: 24px; }
+    h1 { margin: 0 0 8px; font: 400 64px/.9 "Jersey 10", monospace; color: var(--accent); }
+    p { margin: 0 0 12px; }
+    .btns { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    a.btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; text-decoration: none; color: var(--ink); background: var(--paper); border: 2px solid var(--ink); box-shadow: 2px 2px 0 var(--ink); font: 400 20px/1 "Jersey 10", monospace; letter-spacing: .03em; }
+    a.btn--dark { background: var(--ink); color: var(--paper); }
+  </style>
+</head>
+<body>
+  <main class="win" role="alertdialog" aria-labelledby="t">
+    <div class="bar"><span>error.log</span><span aria-hidden="true">×</span></div>
+    <div class="body">
+      <h1 id="t">404</h1>
+      <p><strong>C:\&gt; file not found.</strong></p>
+      <p>This page doesn’t exist, or it was moved. Everything I’ve built is one click away:</p>
+      <div class="btns">
+        <a class="btn btn--dark" href="/">Go home</a>
+        <a class="btn" href="/os/#projects">Projects</a>
+        <a class="btn" href="/os/#contact">Contact</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

@@ -248,7 +248,7 @@ const LoadingScreen: React.FC<LoadingProps> = () => {
                                     marginTop: '12px',
                                 }}
                             >
-                                <a className="bios-start-button" href="/os/">
+                                <a className="bios-start-button" href="/?text">
                                     <p>MOBILE VERSION</p>
                                 </a>
                             </div>

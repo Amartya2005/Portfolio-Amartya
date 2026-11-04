@@ -160,7 +160,7 @@
       '<p class="kicker">Work history</p><h1 class="h1" style="margin:6px 0 22px">Experience</h1>' +
       '<ol class="tl">' + window.EXPERIENCE.map(function (e) {
         return '<li class="tl__item' + (e.current ? ' is-current' : '') + '">' +
-          '<p class="tl__period">' + esc(e.period) + (e.place ? ' · ' + esc(e.place) : '') + (e.current ? ' · <strong style="color:var(--accent)">NOW</strong>' : '') + '</p>' +
+          '<p class="tl__period">' + esc(e.period) + (e.place ? ' · ' + esc(e.place) : '') + (e.current ? ' · <strong style="color:var(--accent-text)">NOW</strong>' : '') + '</p>' +
           '<h2 class="tl__title">' + esc(e.title) + '</h2>' +
           '<p class="tl__org">' + esc(e.org) + '</p>' +
           '<ul class="tl__pts">' + e.points.map(function (pt) { return '<li>' + esc(pt) + '</li>'; }).join('') + '</ul>' +
@@ -361,6 +361,8 @@
   function bounds() { return { w: desktop.clientWidth, h: desktop.clientHeight }; }
 
   function createWin(id, cfg) {
+    // Phones: one full-screen app at a time, like a native app.
+    if (isMobile()) Object.keys(wins).forEach(function (k) { closeWin(k, true); });
     var b = bounds();
     var w = Math.min(cfg.w || 640, b.w - 40), h = Math.min(cfg.h || 520, b.h - 30);
     var x = Math.max(10, Math.min(130 + cascade * 34, b.w - w - 10));
@@ -373,7 +375,8 @@
     el.setAttribute('aria-label', cfg.title);
     el.style.cssText = 'left:' + x + 'px;top:' + y + 'px;width:' + w + 'px;height:' + h + 'px';
     el.innerHTML =
-      '<header class="win__bar"><span class="win__icon">' + ICONS[cfg.icon] + '</span>' +
+      '<header class="win__bar">' + (cfg.parent ? '<button type="button" class="win__back" data-act="back" aria-label="Back">‹</button>' : '') +
+      '<span class="win__icon">' + ICONS[cfg.icon] + '</span>' +
       '<h2 class="win__title">' + esc(cfg.title) + '</h2>' +
       '<div class="win__btns"><button type="button" data-act="min" aria-label="Minimize">_</button>' +
       '<button type="button" data-act="max" aria-label="Maximize">□</button>' +
@@ -398,7 +401,9 @@
     wins[id] = win;
 
     el.addEventListener('pointerdown', function () { focusWin(id); });
-    $('[data-act="close"]', el).addEventListener('click', function () { closeWin(id); });
+    $('[data-act="close"]', el).addEventListener('click', function () { closeWin(id, true); });
+    var back = $('[data-act="back"]', el);
+    if (back) back.addEventListener('click', function () { closeWin(id); });
     $('[data-act="min"]', el).addEventListener('click', function (e) { e.stopPropagation(); minimize(id); });
     $('[data-act="max"]', el).addEventListener('click', function () { el.classList.toggle('is-max'); });
     $('.win__bar', el).addEventListener('dblclick', function (e) { if (!e.target.closest('button')) el.classList.toggle('is-max'); });
@@ -422,9 +427,10 @@
     w.el.classList.add('is-min'); w.el.classList.remove('is-active'); w.task.classList.remove('is-active');
     var top = topWin(); if (top) focusWin(top);
   }
-  function closeWin(id) {
+  function closeWin(id, toHome) {
     var w = wins[id]; if (!w) return;
     w.el.remove(); w.task.remove(); delete wins[id];
+    if (isMobile() && !toHome && w.cfg.parent) { openApp(w.cfg.parent); return; }
     var top = topWin(); if (top) focusWin(top);
   }
   function topWin() {
@@ -444,11 +450,11 @@
       var p = window.PROJECTS.filter(function (x) { return 'project:' + x.id === id; })[0];
       if (!p) return null;
       if (p.opensCompany) return openApp('focustrigger');
-      cfg = { title: p.short || p.name, icon: 'doc', w: 740, h: 800, render: function () { return renderProject(p); } };
+      cfg = { title: p.short || p.name, icon: 'doc', w: 740, h: 800, parent: 'projects', render: function () { return renderProject(p); } };
     } else if (id.indexOf('cert:') === 0) {
       var c = window.CERTIFICATES[+id.slice(5)];
       if (!c) return null;
-      cfg = { title: c.title + '.png', icon: 'image', w: 860, h: 660, render: function () { return renderCertViewer(c); } };
+      cfg = { title: c.title + '.png', icon: 'image', w: 860, h: 660, parent: 'certificates', render: function () { return renderCertViewer(c); } };
     } else return null;
     return createWin(id, cfg);
   }
@@ -510,6 +516,19 @@
   /* ------------------------------------------------------------------
      Desktop icons
      ------------------------------------------------------------------ */
+  var widget = $('#widget');
+  if (widget) {
+    widget.innerHTML =
+      '<img src="assets/avatar.webp" alt="" width="72" height="72">' +
+      '<div><p class="kicker kicker--accent">Hello, I’m</p><h1 class="widget__name">' + esc(P.name) + '</h1>' +
+      '<p class="widget__line">' + esc(P.headline) + '</p></div>' +
+      '<p class="status widget__status"><span class="led"></span>Open to internships</p>' +
+      '<div class="btns widget__btns"><button class="btn btn--dark" data-app="about">About me</button>' +
+      '<button class="btn" data-app="projects">Projects</button><button class="btn" data-app="contact">Contact</button></div>';
+    widget.addEventListener('click', function (e) { var b = e.target.closest('[data-app]'); if (b) openApp(b.getAttribute('data-app')); });
+  }
+  var homeBtn = $('#home-btn');
+  if (homeBtn) homeBtn.addEventListener('click', function () { Object.keys(wins).forEach(function (k) { closeWin(k, true); }); setMenu(false); });
   var iconsEl = $('#icons');
   iconsEl.innerHTML = DESKTOP_ORDER.map(function (id) {
     return '<button class="icon" type="button" data-app="' + id + '">' + ICONS[APPS[id].icon] + '<span>' + esc(APPS[id].title) + '</span></button>';
@@ -578,11 +597,11 @@
     ['AmartyaOS 1.0 (build 2026.11)', 'hl'],
     ['Copyright (C) 2026 Amartya Sarangee', ''],
     ['', ''],
-    ['Checking memory ............ 16384 MB', 'ok'],
-    ['Mounting /home/amartya ...................', 'ok'],
-    ['Loading FocusTrigger Automation drivers ....', 'ok'],
-    ['Starting services: fastapi, react, agents ..', 'ok'],
-    ['Linking projects (' + window.PROJECTS.length + ') .........................', 'ok'],
+    ['Checking memory: 16384 MB', 'ok'],
+    ['Mounting /home/amartya', 'ok'],
+    ['Loading FocusTrigger drivers', 'ok'],
+    ['Starting fastapi, react, agents', 'ok'],
+    ['Linking ' + window.PROJECTS.length + ' projects', 'ok'],
     ['', ''],
     ['Welcome, visitor.', 'hl'],
   ];
@@ -592,7 +611,7 @@
     clearTimeout(bootTimer);
     bootEl.classList.add('is-done');
     try { sessionStorage.setItem('aos-booted', '1'); } catch (e) {}
-    setTimeout(function () { if (!Object.keys(wins).length) openApp('about'); }, 120);
+    setTimeout(function () { if (!Object.keys(wins).length && !isMobile()) openApp('about'); }, 120);
   }
   function boot(force) {
     var seen = false;
@@ -606,9 +625,9 @@
       if (i >= LINES.length) { bootTimer = setTimeout(finishBoot, 650); return; }
       var l = LINES[i++];
       var text = esc(l[0]);
-      if (l[1] === 'ok') text += ' <span class="ok">[ OK ]</span>';
+      if (l[1] === 'ok') text = '<span class="bl"><span>' + text + '</span><i></i><span class="ok">[ OK ]</span></span>';
       else if (l[1] === 'hl') text = '<span class="hl">' + text + '</span>';
-      bootLog.innerHTML += text + '\n';
+      bootLog.innerHTML += (l[1] === 'ok' ? text : text + '\n');
       bootTimer = setTimeout(next, l[0] ? 110 + Math.random() * 120 : 60);
     })();
   }

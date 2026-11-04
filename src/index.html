@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <style>
     body {
       background-color: rgb(0, 0, 0);
@@ -67,48 +67,63 @@
   </style>
 
   <!-- Primary Meta Tags -->
-  <title>Amartya Sarangee · Portfolio</title>
-  <meta name="title" content="Amartya Sarangee · Software Engineer">
+  <title>Amartya Sarangee – Software Engineer &amp; FocusTrigger Co-Founder</title>
   <meta name="description"
-    content="Amartya Sarangee: Co-Founder & Director at FocusTrigger Automation, building FocusTag. Computer Science student at GIET University working on backend systems, applied AI and agentic systems.">
+    content="Software engineer and Co-Founder &amp; Director of FocusTrigger Automation, building FocusTag. CS student at GIET University: backend, applied AI and agentic AI.">
   <meta name="author" content="Amartya Sarangee">
+  <meta name="robots" content="index, follow, max-image-preview:large">
   <link rel="canonical" href="https://portfolio-amartya.vercel.app/">
+  <meta name="theme-color" content="#f6f0e4" media="(max-width: 767px)">
   <meta name="theme-color" content="#000000">
+  <link rel="manifest" href="/site.webmanifest">
 
   <!-- Open Graph -->
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="profile">
+  <meta property="og:site_name" content="Amartya Sarangee">
   <meta property="og:url" content="https://portfolio-amartya.vercel.app/">
-  <meta property="og:title" content="Amartya Sarangee · Software Engineer">
+  <meta property="og:title" content="Amartya Sarangee – Software Engineer &amp; FocusTrigger Co-Founder">
   <meta property="og:description"
-    content="Co-Founder & Director at FocusTrigger Automation. Building FocusTag. Backend, applied AI and agentic systems.">
+    content="Co-Founder &amp; Director at FocusTrigger Automation, building FocusTag. Backend, applied AI and agentic systems. Explore my portfolio as a 3D desk or a retro OS.">
   <meta property="og:image" content="https://portfolio-amartya.vercel.app/images/preview.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A 3D retro desk computer running AmartyaOS, Amartya Sarangee's portfolio">
+  <meta property="profile:first_name" content="Amartya">
+  <meta property="profile:last_name" content="Sarangee">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Amartya Sarangee · Software Engineer">
+  <meta name="twitter:title" content="Amartya Sarangee – Software Engineer &amp; FocusTrigger Co-Founder">
   <meta name="twitter:description"
-    content="Co-Founder & Director at FocusTrigger Automation. Building FocusTag. Backend, applied AI and agentic systems.">
+    content="Co-Founder &amp; Director at FocusTrigger Automation, building FocusTag. Backend, applied AI and agentic systems.">
   <meta name="twitter:image" content="https://portfolio-amartya.vercel.app/images/preview.jpg">
 
   <link rel="icon" href="/images/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
   <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;600&family=Jersey+10&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/home.css">
+  <script>
+    // Decide before first paint: phones get the fast text home page, others the 3D desk.
+    (function () {
+      var q = location.search;
+      var three = /[?&]3d\b/.test(q) || (!/[?&]text\b/.test(q) && !window.matchMedia('(max-width: 767px)').matches);
+      document.documentElement.className = three ? 'is-3d' : 'is-home';
+    })();
+  </script>
+  <template id="ph-jsonld"></template>
 </head>
 
 <body>
+  <template id="ph-home"></template>
   <div id="css"></div>
   <div id="webgl"></div>
   <div id="overlay"></div>
   <div id="ui-interactive"></div>
   <div id="ui"></div>
-  <div id="monitor-videos">
-    <video id="video-1" muted loop autoplay width="0" height="0" src="/textures/monitor/video/base-static.mp4"
-      style="opacity: 0;"></video>
-    <video id="video-2" muted loop autoplay width="0" height="0"
-      src="/textures/monitor/video/static-texture-layer.mp4" style="opacity: 0;"></video>
-  </div>
 </body>
 
 </html>

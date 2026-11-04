@@ -3,9 +3,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>AmartyaOS · Amartya Sarangee</title>
-  <meta name="description" content="Amartya Sarangee: Co-Founder & Director at FocusTrigger Automation, building FocusTag. Software engineer working on backend systems, applied AI and agentic systems.">
+  <title>AmartyaOS – Interactive portfolio of Amartya Sarangee</title>
+  <meta name="description" content="Amartya Sarangee's portfolio as a retro desktop: FocusTag, projects with engineering notes, experience, certificates, skills and a working terminal.">
+  <meta name="author" content="Amartya Sarangee">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://portfolio-amartya.vercel.app/os/">
   <meta name="theme-color" content="#161b3a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Amartya Sarangee">
+  <meta property="og:url" content="https://portfolio-amartya.vercel.app/os/">
+  <meta property="og:title" content="AmartyaOS – Interactive portfolio of Amartya Sarangee">
+  <meta property="og:description" content="A retro desktop with my projects, experience, certificates and a working terminal.">
+  <meta property="og:image" content="https://portfolio-amartya.vercel.app/images/preview.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <template id="ph-jsonld"></template>
   <link rel="icon" href="/images/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,11 +30,12 @@
 </head>
 <body>
   <div id="boot" class="boot" aria-live="polite">
-    <pre class="boot__log" id="boot-log"></pre>
+    <div class="boot__log" id="boot-log"></div>
     <p class="boot__skip">click or press any key to skip</p>
   </div>
 
   <main id="desktop" class="desktop" aria-label="AmartyaOS desktop">
+    <section class="widget" id="widget" aria-label="Profile"></section>
     <nav class="icons" id="icons" aria-label="Applications"></nav>
     <div class="windows" id="windows"></div>
   </main>
@@ -30,6 +46,7 @@
     <button class="start-btn" id="start-btn" type="button" aria-haspopup="true" aria-expanded="false">
       <span class="start-btn__logo" aria-hidden="true">AS</span><span>Start</span>
     </button>
+    <button class="home-btn" id="home-btn" type="button" aria-label="Home screen">Home</button>
     <div class="tasks" id="tasks" role="toolbar" aria-label="Open windows"></div>
     <div class="tray">
       <span class="tray__status" title="Open to internships"><span class="led" aria-hidden="true"></span>Open to work</span>

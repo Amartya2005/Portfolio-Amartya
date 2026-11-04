@@ -10,6 +10,15 @@ working terminal, and a way to contact me.
   loads it inside the monitor, and it also works on its own at `/os/`, which is
   the version phones get.
 
+## How visitors see it
+
+- **Desktop:** the 3D desk. The 3D code is a separate chunk that loads only in this mode.
+- **Phones (under 768px wide):** a fast one-page profile (`/`), with links into AmartyaOS (`/os/`).
+  Phones don't download the 3D scene. `/?3d` forces the desk, and `/?text` forces the text page.
+- **Search engines and screen readers:** the text page is prerendered into `index.html` at build
+  time (`scripts/prerender.js`), together with schema.org JSON-LD (Person, WebSite, ProfilePage)
+  and `sitemap.xml`. It is all generated from `os/data.js`.
+
 ## Updating content
 
 Everything on the site lives in **`os/data.js`**: bio, projects, experience,
